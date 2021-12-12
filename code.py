@@ -5,6 +5,15 @@ import board
 import neopixel
 import touchio
 
+# Don't forget to update board to latest circuitpython
+# https://learn.adafruit.com/welcome-to-circuitpython/installing-circuitpython
+
+# Use Mu editor for easiest IDE experience
+
+# Add reqd libraries to lib/ folder on arduino (eg adafruit_ble, neopixel)
+# (check serial console for errors ro know which ones)
+# https://circuitpython.org/libraries
+
 from adafruit_ble import BLERadio
 from adafruit_ble.advertising.standard import ProvideServicesAdvertisement
 from adafruit_ble.services.nordic import UARTService
