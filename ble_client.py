@@ -22,7 +22,7 @@ uart_connection = None
 
 HUE_URL = 'http://' + secrets["ip_address"] + '/api/' + secrets["api_id"] + '/groups/12/action'
 
-color = ''
+new_color = ''
 
 while True:
     if not uart_connection:
@@ -37,8 +37,8 @@ while True:
     if uart_connection and uart_connection.connected:
         uart_service = uart_connection[UARTService]
         while uart_connection.connected:
-            print(uart_service.readline().decode("utf-8"))
-            if "green" in uart_service.readline().decode("utf-8"):
+            new_color = uart_service.readline().decode("utf-8")
+            if "green" in new_color:
                 print("COLOR IS GREEN!!!!")
                 print("PUTing data to {0}".format(HUE_URL))
                 response = http.put(HUE_URL, data='{"scene":"URnH9in2-faN3hS"}')
@@ -47,3 +47,15 @@ while True:
                 print(response.status_code)
                 print("-" * 40)
                 response.close()
+
+            if "off" in new_color:
+                print("OFF!!!!")
+                print("PUTing data to {0}".format(HUE_URL))
+                response = http.put(HUE_URL, data='{"on":false}')
+
+                print("-" * 40)
+                print(response.status_code)
+                print("-" * 40)
+                response.close()
+
+            new_color = ''
