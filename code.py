@@ -63,6 +63,8 @@ while True:
         if touch_A3.value:
             print("A3 touched!")
             if current_color == "off" or current_color == "":
+                pixels.fill(WHITE)
+                pixels.show()
                 new_color = "on"
             else:
                 new_color = "off"
@@ -86,6 +88,39 @@ while True:
             pixels.fill(GREEN)
             pixels.show()
             new_color = "green"
+            if new_color != current_color:
+                current_color = new_color
+                print(new_color)
+                data = current_color + "\n"
+                uart.write(data.encode("utf-8"))
+                time.sleep(2)
+        if touch_A1.value and touch_A6.value and current_color != "yellow":
+            print("Touched red & green!")
+            pixels.fill(YELLOW)
+            pixels.show()
+            new_color = "yellow"
+            if new_color != current_color:
+                current_color = new_color
+                print(new_color)
+                data = current_color + "\n"
+                uart.write(data.encode("utf-8"))
+                time.sleep(2)
+        if touch_A1.value and touch_A4.value and current_color != "purple":
+            print("Touched red & blue!")
+            pixels.fill(PURPLE)
+            pixels.show()
+            new_color = "purple"
+            if new_color != current_color:
+                current_color = new_color
+                print(new_color)
+                data = current_color + "\n"
+                uart.write(data.encode("utf-8"))
+                time.sleep(2)
+        if touch_A4.value and touch_A6.value and current_color != "cyan":
+            print("Touched blue & green!")
+            pixels.fill(CYAN)
+            pixels.show()
+            new_color = "cyan"
             if new_color != current_color:
                 current_color = new_color
                 print(new_color)
