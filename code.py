@@ -23,12 +23,9 @@ uart = UARTService()
 advertisement = ProvideServicesAdvertisement(uart)
 
 touch_A1 = touchio.TouchIn(board.A1)
-touch_A2 = touchio.TouchIn(board.A2)
 touch_A3 = touchio.TouchIn(board.A3)
 touch_A4 = touchio.TouchIn(board.A4)
-touch_A5 = touchio.TouchIn(board.A5)
 touch_A6 = touchio.TouchIn(board.A6)
-touch_TX = touchio.TouchIn(board.TX)
 
 pixels = neopixel.NeoPixel(board.NEOPIXEL, 10, brightness=0.2, auto_write=False)
 
@@ -42,7 +39,7 @@ WHITE = (255, 255, 255)
 OFF = (0, 0, 0)
 
 new_color = ""
-color_sent = ""
+current_color = "on"
 
 while True:
     ble.start_advertising(advertisement)
@@ -51,30 +48,49 @@ while True:
         pass
     print("Connected")
     while ble.connected:
-        if touch_A1.value:
+        if touch_A1.value and current_color != "red":
             print("Touched A1!")
+            pixels.fill(RED)
+            pixels.show()
+            new_color = "red"
+            if new_color != current_color:
+                current_color = new_color
+                print(new_color)
+                data = current_color + "\n"
+                uart.write(data.encode("utf-8"))
+                time.sleep(2)
+        if touch_A3.value:
+            print("A3 touched!")
+            if current_color == "off" or current_color == "":
+                new_color = "on"
+            else:
+                new_color = "off"
+            current_color = new_color
+            data = current_color + "\n"
+            uart.write(data.encode("utf-8"))
+            time.sleep(2)
+        if touch_A4.value and current_color != "blue":
+            print("Touched A4!")
+            pixels.fill(BLUE)
+            pixels.show()
+            new_color = "blue"
+            if new_color != current_color:
+                current_color = new_color
+                print(new_color)
+                data = current_color + "\n"
+                uart.write(data.encode("utf-8"))
+                time.sleep(2)
+        if touch_A6.value and current_color != "green":
+            print("Touched A6!")
             pixels.fill(GREEN)
             pixels.show()
             new_color = "green"
-            if new_color != color_sent:
-                color_sent = new_color
-                print(color_sent)
+            if new_color != current_color:
+                current_color = new_color
                 print(new_color)
-                uart.write(color_sent.encode("utf-8"))
-        if touch_A2.value:
-            print("A2 touched!")
-        if touch_A3.value:
-            print("A3 touched!")
-        if touch_A4.value:
-            print("A4 touched!")
-        if touch_A5.value:
-            print("A5 touched!")
-        if touch_A6.value:
-            print("A6 touched!")
-        if touch_TX.value:
-            print("TX touched!")
-
-        time.sleep(0.01)
+                data = current_color + "\n"
+                uart.write(data.encode("utf-8"))
+                time.sleep(2)
+        time.sleep(0.1)
         pixels.fill(OFF)
         pixels.show()
-
