@@ -22,12 +22,13 @@ ble = BLERadio()
 uart = UARTService()
 advertisement = ProvideServicesAdvertisement(uart)
 
-touch_A1 = touchio.TouchIn(board.A1)
-touch_A3 = touchio.TouchIn(board.A3)
-touch_A4 = touchio.TouchIn(board.A4)
-touch_A6 = touchio.TouchIn(board.A6)
+touch_A1 = touchio.TouchIn(board.A1)  # red
+touch_A3 = touchio.TouchIn(board.A3)  # on/off
+touch_A4 = touchio.TouchIn(board.A4)  # green
+touch_A6 = touchio.TouchIn(board.A6)  # blue
 
-pixels = neopixel.NeoPixel(board.NEOPIXEL, 10, brightness=0.2, auto_write=False)
+pixels = neopixel.NeoPixel(
+    board.NEOPIXEL, 10, brightness=0.2, auto_write=False)
 
 RED = (255, 0, 0)
 YELLOW = (255, 150, 0)
