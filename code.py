@@ -49,7 +49,7 @@ while True:
         pass
     print("Connected")
     while ble.connected:
-        time.sleep(1)
+        time.sleep(1.5)
 
         if touch_A3.value:
             print("A3 touched!")
@@ -101,7 +101,6 @@ while True:
             print(new_color)
             data = current_color + "\n"
             uart.write(data.encode("utf-8"))
-
-        time.sleep(1)
-        pixels.fill(OFF)
-        pixels.show()
+            time.sleep(2)
+            pixels.fill(OFF)
+            pixels.show()
