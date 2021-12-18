@@ -105,6 +105,17 @@ while True:
                 print("-" * 40)
                 response.close()
 
+            if "on" in new_color:
+                print("ON!!!!")
+                print("PUTing data to {0}".format(HUE_URL))
+                response = http.put(HUE_URL, data='{"on":true}')
+                response = http.put(
+                    HUE_URL, data='{"scene":"{}"}'.format(secrets["on_scene"]))
+                print("-" * 40)
+                print(response.status_code)
+                print("-" * 40)
+                response.close()
+
             if "off" in new_color:
                 print("OFF!!!!")
                 print("PUTing data to {0}".format(HUE_URL))
