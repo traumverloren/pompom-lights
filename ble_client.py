@@ -65,7 +65,7 @@ while True:
                 print("COLOR IS BLUE!!!!")
                 print("PUTing data to {0}".format(HUE_URL))
                 response = http.put(
-                    HUE_URL, data='{"scene":"{}"}'.format(secrets["blue_scene"]))
+                    HUE_URL, data='{{"scene":"{}"}}'.format(secrets["blue_scene"]))
 
                 print("-" * 40)
                 print(response.status_code)
@@ -76,7 +76,7 @@ while True:
                 print("COLOR IS YELLOW!!!!")
                 print("PUTing data to {0}".format(HUE_URL))
                 response = http.put(
-                    HUE_URL, data='{"scene":"{}"}'.format(secrets["yellow_scene"]))
+                    HUE_URL, data='{{"scene":"{}"}}'.format(secrets["yellow_scene"]))
 
                 print("-" * 40)
                 print(response.status_code)
@@ -87,7 +87,7 @@ while True:
                 print("COLOR IS CYAN!!!!")
                 print("PUTing data to {0}".format(HUE_URL))
                 response = http.put(
-                    HUE_URL, data='{"scene":"{}"}'.format(secrets["cyan_scene"]))
+                    HUE_URL, data='{{"scene":"{}"}}'.format(secrets["cyan_scene"]))
 
                 print("-" * 40)
                 print(response.status_code)
@@ -98,7 +98,7 @@ while True:
                 print("COLOR IS PURPLE!!!!")
                 print("PUTing data to {0}".format(HUE_URL))
                 response = http.put(
-                    HUE_URL, data='{"scene":"{}"}'.format(secrets["purple_scene"]))
+                    HUE_URL, data='{{"scene":"{}"}}'.format(secrets["purple_scene"]))
 
                 print("-" * 40)
                 print(response.status_code)
@@ -110,7 +110,7 @@ while True:
                 print("PUTing data to {0}".format(HUE_URL))
                 response = http.put(HUE_URL, data='{"on":true}')
                 response = http.put(
-                    HUE_URL, data='{"scene":"{}"}'.format(secrets["on_scene"]))
+                    HUE_URL, data='{{"scene":"{}"}}'.format(secrets["on_scene"]))
                 print("-" * 40)
                 print(response.status_code)
                 print("-" * 40)
