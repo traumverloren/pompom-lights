@@ -20,7 +20,8 @@ except ImportError:
 ble = BLERadio()
 uart_connection = None
 
-HUE_URL = 'http://' + secrets["ip_address"] + '/api/' + secrets["api_id"] + '/groups/12/action'
+HUE_URL = 'http://' + secrets["ip_address"] + \
+    '/api/' + secrets["api_id"] + '/groups/12/action'
 
 new_color = ''
 
@@ -38,10 +39,66 @@ while True:
         uart_service = uart_connection[UARTService]
         while uart_connection.connected:
             new_color = uart_service.readline().decode("utf-8")
+            if "red" in new_color:
+                print("COLOR IS RED!!!!")
+                print("PUTing data to {0}".format(HUE_URL))
+                response = http.put(
+                    HUE_URL, data='{"scene":"{}"}'.format(secrets["red_scene"]))
+
+                print("-" * 40)
+                print(response.status_code)
+                print("-" * 40)
+                response.close()
+
             if "green" in new_color:
                 print("COLOR IS GREEN!!!!")
                 print("PUTing data to {0}".format(HUE_URL))
-                response = http.put(HUE_URL, data='{"scene":"URnH9in2-faN3hS"}')
+                response = http.put(
+                    HUE_URL, data='{"scene":"{}"}'.format(secrets["green_scene"]))
+
+                print("-" * 40)
+                print(response.status_code)
+                print("-" * 40)
+                response.close()
+
+            if "blue" in new_color:
+                print("COLOR IS BLUE!!!!")
+                print("PUTing data to {0}".format(HUE_URL))
+                response = http.put(
+                    HUE_URL, data='{"scene":"{}"}'.format(secrets["blue_scene"]))
+
+                print("-" * 40)
+                print(response.status_code)
+                print("-" * 40)
+                response.close()
+
+            if "yellow" in new_color:
+                print("COLOR IS YELLOW!!!!")
+                print("PUTing data to {0}".format(HUE_URL))
+                response = http.put(
+                    HUE_URL, data='{"scene":"{}"}'.format(secrets["yellow_scene"]))
+
+                print("-" * 40)
+                print(response.status_code)
+                print("-" * 40)
+                response.close()
+
+            if "cyan" in new_color:
+                print("COLOR IS CYAN!!!!")
+                print("PUTing data to {0}".format(HUE_URL))
+                response = http.put(
+                    HUE_URL, data='{"scene":"{}"}'.format(secrets["cyan_scene"]))
+
+                print("-" * 40)
+                print(response.status_code)
+                print("-" * 40)
+                response.close()
+
+            if "purple" in new_color:
+                print("COLOR IS PURPLE!!!!")
+                print("PUTing data to {0}".format(HUE_URL))
+                response = http.put(
+                    HUE_URL, data='{"scene":"{}"}'.format(secrets["purple_scene"]))
 
                 print("-" * 40)
                 print(response.status_code)
