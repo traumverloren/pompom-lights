@@ -43,7 +43,7 @@ while True:
                 print("COLOR IS RED!!!!")
                 print("PUTing data to {0}".format(HUE_URL))
                 response = http.put(
-                    HUE_URL, data='{"scene":"{}"}'.format(secrets["red_scene"]))
+                    HUE_URL, data='{{"scene":"{}"}}'.format(secrets["red_scene"]))
 
                 print("-" * 40)
                 print(response.status_code)
@@ -54,7 +54,7 @@ while True:
                 print("COLOR IS GREEN!!!!")
                 print("PUTing data to {0}".format(HUE_URL))
                 response = http.put(
-                    HUE_URL, data='{"scene":"{}"}'.format(secrets["green_scene"]))
+                    HUE_URL, data='{{"scene":"{}"}}'.format(secrets["green_scene"]))
 
                 print("-" * 40)
                 print(response.status_code)
