@@ -24,7 +24,7 @@ HUE_URL = 'http://' + secrets["ip_address"] + \
     '/api/' + secrets["api_id"] + '/groups/12/action'
 
 COLOR_LOOP_URL = 'http://' + secrets["ip_address"] + \
-    '/api/' + secrets["api_id"] + 'sensors/3/state'
+    '/api/' + secrets["api_id"] + '/sensors/3/state'
 
 new_color = ''
 
@@ -45,8 +45,8 @@ while True:
 
             if "rainbow" in new_color:
                 print("RAINBOW!!!!")
-                print("PUTing data to {1}".format(COLOR_LOOP_URL))
-                response = http.put(HUE_URL, data='{"status":1}')
+                print("PUTing data to {0}".format(COLOR_LOOP_URL))
+                response = http.put(COLOR_LOOP_URL, data='{"status":1}')
 
                 print("-" * 40)
                 print(response.status_code)
@@ -80,6 +80,8 @@ while True:
                 if "off" in new_color:
                     data = '{"on":false}'
 
+                print(new_color + '!!!!')
+                print("PUTing data to {0}".format(HUE_URL))
                 response = http.put(HUE_URL, data=data)
                 print("-" * 40)
                 print(response.status_code)
