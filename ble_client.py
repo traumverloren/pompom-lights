@@ -23,6 +23,9 @@ uart_connection = None
 HUE_URL = 'http://' + secrets["ip_address"] + \
     '/api/' + secrets["api_id"] + '/groups/12/action'
 
+COLOR_LOOP_URL = 'http://' + secrets["ip_address"] + \
+    '/api/' + secrets["api_id"] + 'sensors/3/state'
+
 new_color = ''
 
 while True:
@@ -39,91 +42,53 @@ while True:
         uart_service = uart_connection[UARTService]
         while uart_connection.connected:
             new_color = uart_service.readline().decode("utf-8")
-            if "red" in new_color:
-                print("COLOR IS RED!!!!")
-                print("PUTing data to {0}".format(HUE_URL))
-                response = http.put(
-                    HUE_URL, data='{{"scene":"{}"}}'.format(secrets["red_scene"]))
+
+            if "rainbow" in new_color:
+                print("RAINBOW!!!!")
+                print("PUTing data to {1}".format(COLOR_LOOP_URL))
+                response = http.put(HUE_URL, data='{"status":1}')
 
                 print("-" * 40)
                 print(response.status_code)
                 print("-" * 40)
                 response.close()
 
-            if "green" in new_color:
-                print("COLOR IS GREEN!!!!")
-                print("PUTing data to {0}".format(HUE_URL))
-                response = http.put(
-                    HUE_URL, data='{{"scene":"{}"}}'.format(secrets["green_scene"]))
+            else:
+                data = ''
 
+                if "red" in new_color:
+                    data = '{{"scene":"{}"}}'.format(secrets["red_scene"])
+
+                if "green" in new_color:
+                    data = '{{"scene":"{}"}}'.format(secrets["green_scene"])
+
+                if "blue" in new_color:
+                    data = '{{"scene":"{}"}}'.format(secrets["blue_scene"])
+
+                if "yellow" in new_color:
+                    data = '{{"scene":"{}"}}'.format(secrets["yellow_scene"])
+
+                if "cyan" in new_color:
+                    data = '{{"scene":"{}"}}'.format(secrets["cyan_scene"])
+
+                if "purple" in new_color:
+                    data = '{{"scene":"{}"}}'.format(secrets["purple_scene"])
+
+                if "on" in new_color:
+                    data = '{{"scene":"{}"}}'.format(secrets["on_scene"])
+
+                if "off" in new_color:
+                    data = '{"on":false}'
+
+                response = http.put(HUE_URL, data=data)
                 print("-" * 40)
                 print(response.status_code)
                 print("-" * 40)
                 response.close()
 
-            if "blue" in new_color:
-                print("COLOR IS BLUE!!!!")
-                print("PUTing data to {0}".format(HUE_URL))
-                response = http.put(
-                    HUE_URL, data='{{"scene":"{}"}}'.format(secrets["blue_scene"]))
-
-                print("-" * 40)
-                print(response.status_code)
-                print("-" * 40)
-                response.close()
-
-            if "yellow" in new_color:
-                print("COLOR IS YELLOW!!!!")
-                print("PUTing data to {0}".format(HUE_URL))
-                response = http.put(
-                    HUE_URL, data='{{"scene":"{}"}}'.format(secrets["yellow_scene"]))
-
-                print("-" * 40)
-                print(response.status_code)
-                print("-" * 40)
-                response.close()
-
-            if "cyan" in new_color:
-                print("COLOR IS CYAN!!!!")
-                print("PUTing data to {0}".format(HUE_URL))
-                response = http.put(
-                    HUE_URL, data='{{"scene":"{}"}}'.format(secrets["cyan_scene"]))
-
-                print("-" * 40)
-                print(response.status_code)
-                print("-" * 40)
-                response.close()
-
-            if "purple" in new_color:
-                print("COLOR IS PURPLE!!!!")
-                print("PUTing data to {0}".format(HUE_URL))
-                response = http.put(
-                    HUE_URL, data='{{"scene":"{}"}}'.format(secrets["purple_scene"]))
-
-                print("-" * 40)
-                print(response.status_code)
-                print("-" * 40)
-                response.close()
-
-            if "on" in new_color:
-                print("ON!!!!")
-                print("PUTing data to {0}".format(HUE_URL))
-                response = http.put(HUE_URL, data='{"on":true}')
-                response = http.put(
-                    HUE_URL, data='{{"scene":"{}"}}'.format(secrets["on_scene"]))
-                print("-" * 40)
-                print(response.status_code)
-                print("-" * 40)
-                response.close()
-
-            if "off" in new_color:
-                print("OFF!!!!")
-                print("PUTing data to {0}".format(HUE_URL))
-                response = http.put(HUE_URL, data='{"on":false}')
-
-                print("-" * 40)
-                print(response.status_code)
-                print("-" * 40)
-                response.close()
+                # turn off color loop
+                end_color_loop_response = http.put(
+                    HUE_URL, data='{"status":0}')
+                end_color_loop_response.close()
 
             new_color = ''
