@@ -53,7 +53,7 @@ while True:
                 print("-" * 40)
                 response.close()
 
-            else:
+            elif new_color:
                 data = ''
 
                 if "red" in new_color:
