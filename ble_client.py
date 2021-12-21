@@ -24,7 +24,7 @@ HUE_URL = 'http://' + secrets["ip_address"] + \
     '/api/' + secrets["api_id"] + '/groups/12/action'
 
 COLOR_LOOP_URL = 'http://' + secrets["ip_address"] + \
-    '/api/' + secrets["api_id"] + '/sensors/3/state'
+    '/api/' + secrets["api_id"] + 'sensors/12/state'
 
 new_color = ''
 
