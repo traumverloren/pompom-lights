@@ -5,6 +5,8 @@ import board
 import neopixel
 import touchio
 
+from rainbowio import colorwheel
+
 # Don't forget to update board to latest circuitpython
 # https://learn.adafruit.com/welcome-to-circuitpython/installing-circuitpython
 
@@ -24,13 +26,16 @@ advertisement = ProvideServicesAdvertisement(uart)
 
 touch_A1 = touchio.TouchIn(board.A1)  # red
 touch_A3 = touchio.TouchIn(board.A3)  # on/off
-touch_A4 = touchio.TouchIn(board.A4)  # green
+touch_A5 = touchio.TouchIn(board.A5)  # green
 touch_A6 = touchio.TouchIn(board.A6)  # blue
+touch_TX = touchio.TouchIn(board.TX)  # rainbow
 
-touch_sensors = [touch_A1, touch_A3, touch_A4, touch_A6]
+touch_sensors = [touch_TX, touch_A1, touch_A3, touch_A5, touch_A6]
 
 for sensor in touch_sensors:
-    sensor.threshold = 1500
+    sensor.threshold = 1200
+
+touch_TX.threshold = 700
 
 pixels = neopixel.NeoPixel(
     board.NEOPIXEL, 10, brightness=0.2, auto_write=False)
@@ -48,6 +53,16 @@ new_color = ""
 current_color = "on"
 is_touched = False
 
+
+def rainbow(wait):
+    for j in range(255):
+        for i in range(10):
+            rc_index = (i * 256 // 10) + j * 5
+            pixels[i] = colorwheel(rc_index & 255)
+        pixels.show()
+        time.sleep(wait)
+
+
 while True:
     ble.start_advertising(advertisement)
     print("Waiting to connect")
@@ -55,7 +70,7 @@ while True:
         pass
     print("Connected")
     while ble.connected:
-        if touch_A1 or touch_A3 or touch_A4 or touch_A6:
+        if touch_TX or touch_A1 or touch_A3 or touch_A5 or touch_A6:
             is_touched = True
             time.sleep(1)
 
@@ -75,13 +90,13 @@ while True:
                 pixels.show()
                 new_color = "yellow"
 
-            elif touch_A1.value and touch_A4.value and current_color != "purple":
+            elif touch_A1.value and touch_A5.value and current_color != "purple":
                 print("Touched red & blue!")
                 pixels.fill(PURPLE)
                 pixels.show()
                 new_color = "purple"
 
-            elif touch_A4.value and touch_A6.value and current_color != "cyan":
+            elif touch_A5.value and touch_A6.value and current_color != "cyan":
                 print("Touched blue & green!")
                 pixels.fill(CYAN)
                 pixels.show()
@@ -93,8 +108,13 @@ while True:
                 pixels.show()
                 new_color = "red"
 
-            elif touch_A4.value and current_color != "blue":
-                print("Touched A4!")
+            elif touch_TX.value and current_color != "rainbow":
+                print("Touched TX!")
+                rainbow(0.01)
+                new_color = "rainbow"
+
+            elif touch_A5.value and current_color != "blue":
+                print("Touched A5!")
                 pixels.fill(BLUE)
                 pixels.show()
                 new_color = "blue"
