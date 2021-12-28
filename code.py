@@ -33,9 +33,9 @@ touch_TX = touchio.TouchIn(board.TX)  # rainbow
 touch_sensors = [touch_TX, touch_A1, touch_A3, touch_A5, touch_A6]
 
 for sensor in touch_sensors:
-    sensor.threshold = 1200
+    sensor.threshold = 800
 
-touch_TX.threshold = 700
+touch_A3.threshold = 1300
 
 pixels = neopixel.NeoPixel(
     board.NEOPIXEL, 10, brightness=0.2, auto_write=False)
@@ -141,7 +141,7 @@ while True:
             if current_color != new_color:
                 is_touched = False
                 current_color = new_color
-                print(new_color)
+                print(current_color)
                 data = current_color + "\n"
                 uart.write(data.encode("utf-8"))
                 time.sleep(1)
