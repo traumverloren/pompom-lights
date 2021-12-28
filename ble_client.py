@@ -43,20 +43,20 @@ while True:
         while uart_connection.connected:
             new_color = uart_service.readline().decode("utf-8")
 
-            if "rainbow" in new_color:
-                print("RAINBOW!!!!")
+            if "no_rainbow" in new_color:
+                print("NO RAINBOW!!!!")
                 print("PUTing data to {0}".format(COLOR_LOOP_URL))
-                response = http.put(COLOR_LOOP_URL, data='{"status":1}')
+                response = http.put(COLOR_LOOP_URL, data='{"status":0}')
 
                 print("-" * 40)
                 print(response.status_code)
                 print("-" * 40)
                 response.close()
 
-            elif "no_rainbow" in new_color:
-                print("NO RAINBOW!!!!")
+            elif "rainbow" in new_color:
+                print("RAINBOW!!!!")
                 print("PUTing data to {0}".format(COLOR_LOOP_URL))
-                response = http.put(COLOR_LOOP_URL, data='{"status":0}')
+                response = http.put(COLOR_LOOP_URL, data='{"status":1}')
 
                 print("-" * 40)
                 print(response.status_code)
