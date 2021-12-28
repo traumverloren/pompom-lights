@@ -63,6 +63,15 @@ def rainbow(wait):
         time.sleep(wait)
 
 
+def reversed_rainbow(wait):
+    for j in reversed(range(255)):
+        for i in reversed(range(10)):
+            rc_index = (i * 256 // 10) + j * 5
+            pixels[i] = colorwheel(rc_index & 255)
+        pixels.show()
+        time.sleep(wait)
+
+
 while True:
     ble.start_advertising(advertisement)
     print("Waiting to connect")
@@ -86,10 +95,11 @@ while True:
 
             elif touch_TX.value:
                 print("Touched TX!")
-                rainbow(0.01)
                 if current_color == "rainbow":
+                    reversed_rainbow(0.01)
                     new_color = "no_rainbow"
                 else:
+                    rainbow(0.01)
                     new_color = "rainbow"
 
             elif touch_A1.value and touch_A6.value and current_color != "yellow":
