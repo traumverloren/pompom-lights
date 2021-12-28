@@ -84,6 +84,14 @@ while True:
                 else:
                     new_color = "off"
 
+            elif touch_TX.value:
+                print("Touched TX!")
+                rainbow(0.01)
+                if current_color == "rainbow":
+                    new_color = "no_rainbow"
+                else:
+                    new_color = "rainbow"
+
             elif touch_A1.value and touch_A6.value and current_color != "yellow":
                 print("Touched red & green!")
                 pixels.fill(YELLOW)
@@ -107,11 +115,6 @@ while True:
                 pixels.fill(RED)
                 pixels.show()
                 new_color = "red"
-
-            elif touch_TX.value and current_color != "rainbow":
-                print("Touched TX!")
-                rainbow(0.01)
-                new_color = "rainbow"
 
             elif touch_A5.value and current_color != "blue":
                 print("Touched A5!")

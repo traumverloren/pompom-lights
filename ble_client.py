@@ -53,6 +53,16 @@ while True:
                 print("-" * 40)
                 response.close()
 
+            elif "no_rainbow" in new_color:
+                print("NO RAINBOW!!!!")
+                print("PUTing data to {0}".format(COLOR_LOOP_URL))
+                response = http.put(COLOR_LOOP_URL, data='{"status":0}')
+
+                print("-" * 40)
+                print(response.status_code)
+                print("-" * 40)
+                response.close()
+
             elif new_color:
                 data = ''
 
