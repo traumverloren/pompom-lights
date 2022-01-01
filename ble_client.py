@@ -100,7 +100,7 @@ while True:
 
                 # turn off color loop
                 end_color_loop_response = http.put(
-                    HUE_URL, data='{"status":0}')
+                    COLOR_LOOP_URL, data='{"status":0}')
                 end_color_loop_response.close()
 
             new_color = ''
